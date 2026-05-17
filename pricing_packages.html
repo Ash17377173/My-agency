@@ -1,0 +1,241 @@
+
+<style>
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:1rem 0}
+.pkg{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;display:flex;flex-direction:column;gap:0}
+.pkg.featured{border:2px solid #1D9E75}
+.pkg-label{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:10px;display:inline-block;margin-bottom:10px;width:fit-content}
+.label-starter{background:#E1F5EE;color:#085041}
+.label-growth{background:#E1F5EE;color:#085041}
+.label-elite{background:#EEEDFE;color:#26215C}
+.label-pop{background:#E1F5EE;color:#085041}
+.pkg-name{font-size:17px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px}
+.pkg-tagline{font-size:12px;color:var(--color-text-secondary);margin:0 0 14px;line-height:1.5}
+.pkg-price{font-size:28px;font-weight:500;color:var(--color-text-primary);margin:0;line-height:1}
+.pkg-price span{font-size:13px;font-weight:400;color:var(--color-text-secondary)}
+.pkg-divider{height:0.5px;background:var(--color-border-tertiary);margin:14px 0}
+.feat-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;flex:1}
+.feat-list li{font-size:12px;color:var(--color-text-secondary);display:flex;gap:7px;align-items:flex-start;line-height:1.45}
+.feat-list li i{color:#1D9E75;flex-shrink:0;margin-top:1px}
+.feat-list li.muted i{color:var(--color-border-secondary)}
+.feat-list li.muted{color:var(--color-text-secondary);opacity:.5}
+.feat-bold{font-weight:500;color:var(--color-text-primary)}
+.pkg-btn{margin-top:16px;width:100%;padding:9px;font-size:13px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-primary);cursor:pointer;transition:background .15s}
+.pkg-btn:hover{background:var(--color-background-secondary)}
+.pkg-btn.primary{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.pkg-btn.primary:hover{background:#0F6E56}
+.section-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-secondary);margin:1.5rem 0 .6rem}
+.addon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:1rem}
+.addon{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;border:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.addon-left{display:flex;gap:10px;align-items:center}
+.addon-icon{font-size:16px;color:var(--color-text-secondary)}
+.addon-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 1px}
+.addon-desc{font-size:11px;color:var(--color-text-secondary);margin:0}
+.addon-price{font-size:13px;font-weight:500;color:var(--color-text-primary);white-space:nowrap}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:10px 0 1.5rem}
+.rev-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px}
+.rev-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px}
+.rev-val{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+.rev-sub{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.slider-row{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.slider-row label{font-size:13px;color:var(--color-text-secondary);min-width:80px}
+.slider-row span{font-size:13px;font-weight:500;min-width:28px;text-align:right}
+.note-box{background:var(--color-background-secondary);border-left:3px solid #1D9E75;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:10px 14px;font-size:12px;color:var(--color-text-secondary);line-height:1.6;margin:1rem 0}
+@media(prefers-color-scheme:dark){
+  .label-starter,.label-growth,.label-pop{background:#085041;color:#9FE1CB}
+  .label-elite{background:#26215C;color:#CECBF6}
+  .pkg-btn.primary{background:#0F6E56;border-color:#0F6E56}
+  .pkg-btn.primary:hover{background:#085041}
+}
+</style>
+
+<h2 class="sr-only">Pricing packages for a Muscat digital marketing agency serving SMEs in dental, beauty, and hospitality</h2>
+
+<div style="padding-top:1rem">
+
+<div class="pkg-grid">
+
+  <div class="pkg">
+    <span class="pkg-label label-starter">Starter</span>
+    <p class="pkg-name">Presence</p>
+    <p class="pkg-tagline">Get active, consistent, and professional on social media</p>
+    <p class="pkg-price">OMR 180 <span>/ month</span></p>
+    <div class="pkg-divider"></div>
+    <ul class="feat-list">
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">12 feed posts/mo</span> — Instagram + 1 other platform</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Bilingual captions (AR + EN)</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Content calendar &amp; scheduling</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">1 photo shoot/mo</span> — 15 edited images</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Hashtag &amp; SEO strategy</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Monthly performance report</span></li>
+      <li class="muted"><i class="ti ti-x" aria-hidden="true"></i><span>Reels / short-form video</span></li>
+      <li class="muted"><i class="ti ti-x" aria-hidden="true"></i><span>Paid ad management</span></li>
+      <li class="muted"><i class="ti ti-x" aria-hidden="true"></i><span>WhatsApp campaigns</span></li>
+    </ul>
+    <button class="pkg-btn" onclick="sendPrompt('Draft a proposal email for the Presence package at OMR 180/month for a salon in Muscat ↗')">Draft proposal ↗</button>
+  </div>
+
+  <div class="pkg featured">
+    <span class="pkg-label label-pop">Most popular</span>
+    <p class="pkg-name">Growth</p>
+    <p class="pkg-tagline">Build a real audience and start converting followers into customers</p>
+    <p class="pkg-price">OMR 380 <span>/ month</span></p>
+    <div class="pkg-divider"></div>
+    <ul class="feat-list">
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">20 feed posts/mo</span> — Instagram + 2 platforms</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Bilingual captions (AR + EN)</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Content calendar &amp; scheduling</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">2 photo + video shoots/mo</span> — 25 images + 4 Reels</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Stories &amp; highlights management</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">Paid ad management</span> — up to 2 campaigns (spend separate)</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Community management &amp; DMs</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Monthly strategy call + report</span></li>
+      <li class="muted"><i class="ti ti-x" aria-hidden="true"></i><span>WhatsApp campaigns</span></li>
+    </ul>
+    <button class="pkg-btn primary" onclick="sendPrompt('Draft a proposal email for the Growth package at OMR 380/month for a dental clinic in Muscat ↗')">Draft proposal ↗</button>
+  </div>
+
+  <div class="pkg">
+    <span class="pkg-label label-elite">Elite</span>
+    <p class="pkg-name">Dominate</p>
+    <p class="pkg-tagline">Full-stack growth partner — every channel, every month</p>
+    <p class="pkg-price">OMR 650 <span>/ month</span></p>
+    <div class="pkg-divider"></div>
+    <ul class="feat-list">
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">30 posts/mo</span> — Instagram, Snapchat, TikTok, Google</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Bilingual captions (AR + EN)</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">4 shoots/mo</span> — 40 images + 8 Reels</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">Unlimited paid campaigns</span> (spend separate)</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">WhatsApp broadcast</span> campaigns — 2/mo</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Google Business management</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Full community management</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span>Bi-weekly strategy calls</span></li>
+      <li><i class="ti ti-check" aria-hidden="true"></i><span><span class="feat-bold">1 micro-influencer campaign/quarter</span></span></li>
+    </ul>
+    <button class="pkg-btn" onclick="sendPrompt('Draft a proposal email for the Dominate package at OMR 650/month for a cosmetics clinic in Muscat ↗')">Draft proposal ↗</button>
+  </div>
+
+</div>
+
+<div class="note-box">
+  All packages run on a 3-month pilot commitment, then month-to-month. Ad spend and influencer fees are always billed directly to the client, separately from the management fee.
+</div>
+
+<div class="section-label">Add-on services</div>
+<div class="addon-grid">
+  <div class="addon">
+    <div class="addon-left">
+      <i class="ti ti-map-pin addon-icon" aria-hidden="true"></i>
+      <div>
+        <p class="addon-name">Google Business management</p>
+        <p class="addon-desc">Reviews, posts, profile optimization</p>
+      </div>
+    </div>
+    <span class="addon-price">+OMR 70/mo</span>
+  </div>
+  <div class="addon">
+    <div class="addon-left">
+      <i class="ti ti-message-circle addon-icon" aria-hidden="true"></i>
+      <div>
+        <p class="addon-name">WhatsApp campaigns</p>
+        <p class="addon-desc">2 broadcasts/mo, bilingual copy</p>
+      </div>
+    </div>
+    <span class="addon-price">+OMR 60/mo</span>
+  </div>
+  <div class="addon">
+    <div class="addon-left">
+      <i class="ti ti-users addon-icon" aria-hidden="true"></i>
+      <div>
+        <p class="addon-name">Influencer campaign</p>
+        <p class="addon-desc">Sourcing, briefing &amp; management</p>
+      </div>
+    </div>
+    <span class="addon-price">+OMR 150/campaign</span>
+  </div>
+  <div class="addon">
+    <div class="addon-left">
+      <i class="ti ti-layout addon-icon" aria-hidden="true"></i>
+      <div>
+        <p class="addon-name">Landing page / booking page</p>
+        <p class="addon-desc">One-off design &amp; build</p>
+      </div>
+    </div>
+    <span class="addon-price">OMR 250–450</span>
+  </div>
+</div>
+
+<div class="section-label">Revenue calculator — what does your client base look like?</div>
+
+<div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;border:0.5px solid var(--color-border-tertiary);margin-bottom:1rem">
+  <div class="slider-row">
+    <label>Presence clients</label>
+    <input type="range" min="0" max="15" value="3" step="1" id="s1" oninput="calc()">
+    <span id="v1">3</span>
+  </div>
+  <div class="slider-row">
+    <label>Growth clients</label>
+    <input type="range" min="0" max="10" value="4" step="1" id="s2" oninput="calc()">
+    <span id="v2">4</span>
+  </div>
+  <div class="slider-row">
+    <label>Dominate clients</label>
+    <input type="range" min="0" max="6" value="1" step="1" id="s3" oninput="calc()">
+    <span id="v3">1</span>
+  </div>
+  <div class="slider-row">
+    <label>Add-on revenue</label>
+    <input type="range" min="0" max="1000" value="200" step="50" id="s4" oninput="calc()">
+    <span id="v4" style="min-width:60px">200</span>
+  </div>
+</div>
+
+<div class="rev-grid">
+  <div class="rev-card">
+    <div class="rev-label">Monthly revenue</div>
+    <div class="rev-val" id="monthly">2,590</div>
+    <div class="rev-sub">OMR / month</div>
+  </div>
+  <div class="rev-card">
+    <div class="rev-label">Annual revenue</div>
+    <div class="rev-val" id="annual">31,080</div>
+    <div class="rev-sub">OMR / year</div>
+  </div>
+  <div class="rev-card">
+    <div class="rev-label">Total clients</div>
+    <div class="rev-val" id="clients">8</div>
+    <div class="rev-sub">active retainers</div>
+  </div>
+  <div class="rev-card">
+    <div class="rev-label">Avg. revenue/client</div>
+    <div class="rev-val" id="arpc">324</div>
+    <div class="rev-sub">OMR / month</div>
+  </div>
+</div>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:.5rem">
+  <button onclick="sendPrompt('Create a sales pitch for the Growth package for a dental clinic in Muscat ↗')">Pitch for dental clinic ↗</button>
+  <button onclick="sendPrompt('What should our onboarding process look like for a new client? ↗')">Design onboarding process ↗</button>
+  <button onclick="sendPrompt('Write a one-page PDF proposal template for these pricing packages ↗')">Create proposal template ↗</button>
+</div>
+
+</div>
+
+<script>
+function calc(){
+  var s1=parseInt(document.getElementById('s1').value);
+  var s2=parseInt(document.getElementById('s2').value);
+  var s3=parseInt(document.getElementById('s3').value);
+  var s4=parseInt(document.getElementById('s4').value);
+  document.getElementById('v1').textContent=s1;
+  document.getElementById('v2').textContent=s2;
+  document.getElementById('v3').textContent=s3;
+  document.getElementById('v4').textContent=s4;
+  var mo=Math.round(s1*180+s2*380+s3*650+s4);
+  var tot=Math.round(s1+s2+s3);
+  document.getElementById('monthly').textContent=mo.toLocaleString();
+  document.getElementById('annual').textContent=(mo*12).toLocaleString();
+  document.getElementById('clients').textContent=tot;
+  document.getElementById('arpc').textContent=tot>0?Math.round(mo/tot).toLocaleString():'—';
+}
+</script>
