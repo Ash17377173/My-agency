@@ -1,0 +1,395 @@
+
+<style>
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.nav{display:flex;gap:6px;flex-wrap:wrap;padding:1.25rem 0 1rem}
+.nav button{font-size:12px;padding:5px 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.nav button.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:transparent}
+.sec{display:none}.sec.on{display:block}
+.sl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-secondary);margin:1.2rem 0 .65rem}
+.sl:first-child{margin-top:0}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:12px}
+.tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;margin:0 3px 3px 0}
+.t-teal{background:#E1F5EE;color:#085041}
+.t-purple{background:#EEEDFE;color:#26215C}
+.t-amber{background:#FAEEDA;color:#633806}
+.t-red{background:#FCEBEB;color:#501313}
+.t-gray{background:#F1EFE8;color:#444441}
+.t-blue{background:#E6F1FB;color:#0C447C}
+.t-coral{background:#FAECE7;color:#4A1B0C}
+
+.opp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:1rem}
+.opp{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;border:0.5px solid var(--color-border-tertiary)}
+.opp-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px}
+.opp-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0}
+.save-pill{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;background:#E1F5EE;color:#085041;white-space:nowrap}
+.opp-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5;margin:0}
+
+.wf-block{margin-bottom:16px}
+.wf-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.wf-steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:0;align-items:stretch}
+.step-left{display:flex;flex-direction:column;align-items:center;width:28px;flex-shrink:0}
+.step-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0;margin-top:2px}
+.dot-auto{background:#E1F5EE;color:#085041}
+.dot-human{background:#EEEDFE;color:#26215C}
+.dot-check{background:#FAEEDA;color:#633806}
+.step-line{width:1px;background:var(--color-border-tertiary);flex:1;margin:3px 0}
+.step-content{padding:0 0 14px 12px;flex:1}
+.step-label{font-size:13px;color:var(--color-text-primary);margin:0 0 2px;line-height:1.4}
+.step-meta{font-size:11px;color:var(--color-text-secondary);margin:0;line-height:1.4}
+.step:last-child .step-line{display:none}
+.step:last-child .step-content{padding-bottom:0}
+
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:1rem}
+.tool{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;border:0.5px solid var(--color-border-tertiary)}
+.tool-cat{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--color-text-secondary);margin:0 0 5px}
+.tool-name{font-size:14px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px}
+.tool-role{font-size:12px;color:var(--color-text-secondary);margin:0 0 6px;line-height:1.4}
+.tool-cost{font-size:11px;color:var(--color-text-secondary);font-style:italic}
+
+.gate{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.gate-icon{width:32px;height:32px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.gate-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 3px}
+.gate-body{font-size:12px;color:var(--color-text-secondary);line-height:1.55;margin:0}
+
+.risk-item{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:10px}
+.risk-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.risk-sev{font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px}
+.sev-h{background:#FCEBEB;color:#791F1F}
+.sev-m{background:#FAEEDA;color:#633806}
+.risk-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0}
+.risk-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.55;margin:0 0 6px}
+.risk-guard{font-size:11px;color:var(--color-text-secondary);border-left:2px solid #1D9E75;padding-left:8px;line-height:1.5}
+.risk-guard b{font-weight:500;color:var(--color-text-primary)}
+
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1rem}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary)}
+.leg-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+
+@media(prefers-color-scheme:dark){
+  .t-teal{background:#085041;color:#9FE1CB}
+  .t-purple{background:#26215C;color:#CECBF6}
+  .t-amber{background:#633806;color:#FAC775}
+  .t-red{background:#501313;color:#F7C1C1}
+  .t-gray{background:#444441;color:#D3D1C7}
+  .t-blue{background:#0C447C;color:#B5D4F4}
+  .t-coral{background:#4A1B0C;color:#F5C4B3}
+  .save-pill{background:#085041;color:#9FE1CB}
+  .sev-h{background:#501313;color:#F09595}
+  .sev-m{background:#633806;color:#FAC775}
+}
+</style>
+
+<h2 class="sr-only">Automation architecture plan for a Muscat digital marketing agency</h2>
+
+<div style="padding-top:.5rem">
+<div class="nav">
+  <button class="active" onclick="show('opps',this)">Opportunities</button>
+  <button onclick="show('wf',this)">Workflows</button>
+  <button onclick="show('tools',this)">Tool stack</button>
+  <button onclick="show('gates',this)">Approval gates</button>
+  <button onclick="show('risks',this)">Risk prevention</button>
+</div>
+
+<div id="opps" class="sec on">
+  <div class="sl">High-impact automation opportunities</div>
+  <div class="opp-grid">
+    <div class="opp">
+      <div class="opp-head"><p class="opp-name">Lead capture & CRM entry</p><span class="save-pill">~4 hrs/mo</span></div>
+      <p class="opp-desc">Auto-log every enquiry from website, Instagram DM, and WhatsApp into a CRM with client name, sector, and source.</p>
+      <div style="margin-top:7px"><span class="tag t-teal">Zapier</span><span class="tag t-teal">HubSpot Free</span></div>
+    </div>
+    <div class="opp">
+      <div class="opp-head"><p class="opp-name">Proposal & contract sending</p><span class="save-pill">~6 hrs/mo</span></div>
+      <p class="opp-desc">Trigger proposal PDF + contract link automatically after a lead is marked "qualified" in CRM. Zero manual email drafting.</p>
+      <div style="margin-top:7px"><span class="tag t-teal">Zapier</span><span class="tag t-purple">PandaDoc Free</span></div>
+    </div>
+    <div class="opp">
+      <div class="opp-head"><p class="opp-name">Monthly invoice generation</p><span class="save-pill">~3 hrs/mo</span></div>
+      <p class="opp-desc">Auto-generate and send invoices on the 1st of each month for all active retainer clients. Chase overdue invoices automatically at day 7 and 15.</p>
+      <div style="margin-top:7px"><span class="tag t-amber">Wave / Zoho</span><span class="tag t-teal">Zapier</span></div>
+    </div>
+    <div class="opp">
+      <div class="opp-head"><p class="opp-name">Content scheduling & publishing</p><span class="save-pill">~10 hrs/mo</span></div>
+      <p class="opp-desc">All approved posts queue for auto-publish across Instagram, Snapchat, TikTok, and Google Business on preset times. No manual posting.</p>
+      <div style="margin-top:7px"><span class="tag t-blue">Later / Buffer</span><span class="tag t-blue">Meta Suite</span></div>
+    </div>
+    <div class="opp">
+      <div class="opp-head"><p class="opp-name">Monthly performance reporting</p><span class="save-pill">~8 hrs/mo</span></div>
+      <p class="opp-desc">Pull reach, engagement, follower growth, and ad results automatically into a pre-built client report template. Send on a fixed date each month.</p>
+      <div style="margin-top:7px"><span class="tag t-purple">Metricool</span><span class="tag t-teal">Zapier</span></div>
+    </div>
+    <div class="opp">
+      <div class="opp-head"><p class="opp-name">Client onboarding sequence</p><span class="save-pill">~5 hrs/mo</span></div>
+      <p class="opp-desc">New client signs contract → auto-trigger welcome email, onboarding form, shared Drive folder creation, and first strategy call booking link.</p>
+      <div style="margin-top:7px"><span class="tag t-teal">Zapier</span><span class="tag t-blue">Google Drive</span><span class="tag t-purple">Calendly</span></div>
+    </div>
+    <div class="opp">
+      <div class="opp-head"><p class="opp-name">Content approval requests</p><span class="save-pill">~4 hrs/mo</span></div>
+      <p class="opp-desc">When content calendar is ready, auto-notify client via WhatsApp or email with a review link. Track approval status without manual chasing.</p>
+      <div style="margin-top:7px"><span class="tag t-amber">Notion / ClickUp</span><span class="tag t-teal">Zapier</span></div>
+    </div>
+    <div class="opp">
+      <div class="opp-head"><p class="opp-name">Ad performance alerts</p><span class="save-pill">~3 hrs/mo</span></div>
+      <p class="opp-desc">Auto-alert via Slack/WhatsApp when any ad campaign drops below target CPR or spends above daily budget threshold — before the client notices.</p>
+      <div style="margin-top:7px"><span class="tag t-red">Meta Alerts</span><span class="tag t-teal">Zapier</span></div>
+    </div>
+  </div>
+
+  <div class="sl">Total estimated time saved</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1rem">
+    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px">
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px">Hours saved/month</div>
+      <div style="font-size:24px;font-weight:500;color:var(--color-text-primary)">40+</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">across 8 automations</div>
+    </div>
+    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px">
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px">Equivalent capacity</div>
+      <div style="font-size:24px;font-weight:500;color:var(--color-text-primary)">+3–4</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">extra clients handled</div>
+    </div>
+    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px">
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px">Tool cost/month</div>
+      <div style="font-size:24px;font-weight:500;color:var(--color-text-primary)">~OMR 30</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">full stack (paid tiers)</div>
+    </div>
+    <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px">
+      <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:4px">Build time (one-off)</div>
+      <div style="font-size:24px;font-weight:500;color:var(--color-text-primary)">~2 days</div>
+      <div style="font-size:11px;color:var(--color-text-secondary)">to set all 8 up</div>
+    </div>
+  </div>
+</div>
+
+<div id="wf" class="sec">
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div>Automated step</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#7F77DD"></div>Human action required</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#BA7517"></div>Approval checkpoint</div>
+  </div>
+
+  <div class="sl">Workflow 1 — Lead to signed client</div>
+  <div class="card">
+    <div class="wf-steps">
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Lead captured automatically</p><p class="step-meta">Instagram DM, WhatsApp, or website form → Zapier logs to CRM (HubSpot) with source, sector tag, and timestamp</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Auto-reply sent within 5 minutes</p><p class="step-meta">WhatsApp template message: "Thanks for reaching out — we'll be in touch within 2 hours." Sets expectation, prevents ghost feeling.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-human"><i class="ti ti-user" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Founder reviews lead & qualifies</p><p class="step-meta">Human decision: right sector? right size? Update CRM status to "Qualified" or "Not a fit". Takes 2 minutes.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Proposal PDF auto-generated & sent</p><p class="step-meta">CRM status change triggers PandaDoc to populate sector-specific proposal template and email it with e-sign contract attached.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-check"><i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Client signs contract</p><p class="step-meta">PandaDoc e-signature. Zapier detects "signed" status → triggers onboarding sequence automatically.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Onboarding sequence fires</p><p class="step-meta">Welcome email + onboarding questionnaire + Google Drive folder created + strategy call link (Calendly) sent — all within 60 seconds of signing.</p></div></div>
+    </div>
+  </div>
+
+  <div class="sl">Workflow 2 — Monthly content production & publishing</div>
+  <div class="card">
+    <div class="wf-steps">
+      <div class="step"><div class="step-left"><div class="step-dot dot-human"><i class="ti ti-user" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Strategy set by founder (week 3 of prior month)</p><p class="step-meta">Human: content themes, key dates, offers, and brief written for each client in Notion/ClickUp template.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-human"><i class="ti ti-user" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Social executive drafts content calendar</p><p class="step-meta">Human: captions (AR + EN), post design, Reels scripts added to scheduler draft queue in Later/Buffer. All marked "pending approval."</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Client notified automatically for review</p><p class="step-meta">Zapier detects calendar "ready for review" status → sends WhatsApp + email to client with Notion review link. No manual chasing.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-check"><i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Client approves (or requests edits)</p><p class="step-meta">Client marks approved in Notion. If edits: social exec revises → re-notify loop. Max 2 revision rounds per contract.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Content auto-published on schedule</p><p class="step-meta">Later/Buffer publishes approved posts at preset optimal times across all platforms. Stories, feed posts, Reels — all queued.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Performance data collected automatically</p><p class="step-meta">Metricool pulls reach, engagement, follower growth weekly. Monthly report compiled and emailed to client on the 28th.</p></div></div>
+    </div>
+  </div>
+
+  <div class="sl">Workflow 3 — Monthly billing & payment</div>
+  <div class="card">
+    <div class="wf-steps">
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Invoice auto-generated on the 1st</p><p class="step-meta">Wave/Zoho Books generates and emails invoice for each active retainer client. Amount pulled from CRM package field.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Auto-reminder at day 7 if unpaid</p><p class="step-meta">Polite follow-up email sent automatically: "Just checking in — our invoice is due shortly." No human action needed.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-check"><i class="ti ti-check" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Day 15: founder reviews overdue accounts</p><p class="step-meta">Human review: decide whether to send a WhatsApp message personally, escalate, or pause services per contract terms.</p></div></div>
+      <div class="step"><div class="step-left"><div class="step-dot dot-auto"><i class="ti ti-bolt" style="font-size:10px" aria-hidden="true"></i></div><div class="step-line"></div></div><div class="step-content"><p class="step-label">Payment confirmed → receipt auto-sent</p><p class="step-meta">Payment triggers receipt email and CRM status update to "paid." Monthly revenue dashboard updates in real-time.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="tools" class="sec">
+  <div class="sl">Automation layer — connective tissue</div>
+  <div class="tool-grid">
+    <div class="tool">
+      <p class="tool-cat">Workflow automation</p>
+      <p class="tool-name">Zapier</p>
+      <p class="tool-role">Connects all tools together. Triggers actions across CRM, invoicing, Notion, WhatsApp, Drive, and email when conditions are met.</p>
+      <p class="tool-cost">Free tier covers ~5 zaps. Starter ~$20/mo for full stack.</p>
+    </div>
+    <div class="tool">
+      <p class="tool-cat">Alternative (lower cost)</p>
+      <p class="tool-name">Make (Integromat)</p>
+      <p class="tool-role">Same function as Zapier. More complex to build but significantly cheaper at scale. Good if you grow beyond 10 automations.</p>
+      <p class="tool-cost">Free tier generous. Core plan ~$9/mo.</p>
+    </div>
+  </div>
+
+  <div class="sl">Client & project management</div>
+  <div class="tool-grid">
+    <div class="tool">
+      <p class="tool-cat">CRM</p>
+      <p class="tool-name">HubSpot Free</p>
+      <p class="tool-role">Track every lead, proposal, and client. Log all touchpoints. Trigger automations on status changes. Pipeline view shows deals at a glance.</p>
+      <p class="tool-cost">Free forever for core CRM features.</p>
+    </div>
+    <div class="tool">
+      <p class="tool-cat">Project management</p>
+      <p class="tool-name">Notion or ClickUp</p>
+      <p class="tool-role">Content calendar hub, client approval tracking, SOP library, and team task management. Clients access their own read-only content boards.</p>
+      <p class="tool-cost">Notion free. ClickUp free tier generous.</p>
+    </div>
+    <div class="tool">
+      <p class="tool-cat">Proposals & contracts</p>
+      <p class="tool-name">PandaDoc</p>
+      <p class="tool-role">Send branded proposals with e-sign contracts. Zapier integration fires onboarding sequence the moment a client signs.</p>
+      <p class="tool-cost">Free tier: unlimited docs, e-sign included.</p>
+    </div>
+  </div>
+
+  <div class="sl">Content & publishing</div>
+  <div class="tool-grid">
+    <div class="tool">
+      <p class="tool-cat">Social scheduling</p>
+      <p class="tool-name">Later</p>
+      <p class="tool-role">Visual content calendar, auto-publish to Instagram, TikTok, Facebook, Pinterest, Google Business. Best Reels scheduling in class.</p>
+      <p class="tool-cost">Starter ~$18/mo for 1 set of profiles.</p>
+    </div>
+    <div class="tool">
+      <p class="tool-cat">Alternative scheduler</p>
+      <p class="tool-name">Buffer</p>
+      <p class="tool-role">Simpler than Later. Supports Instagram, TikTok, Snapchat, and LinkedIn. Good for clients who want to see the queue themselves.</p>
+      <p class="tool-cost">Free for 3 channels. Essentials ~$6/mo.</p>
+    </div>
+    <div class="tool">
+      <p class="tool-cat">Analytics & reporting</p>
+      <p class="tool-name">Metricool</p>
+      <p class="tool-role">Automated monthly reports for all platforms in one dashboard. White-label reports you can send directly to clients with your branding.</p>
+      <p class="tool-cost">Free for 1 brand. Starter ~$18/mo for multiple.</p>
+    </div>
+  </div>
+
+  <div class="sl">Finance & admin</div>
+  <div class="tool-grid">
+    <div class="tool">
+      <p class="tool-cat">Invoicing</p>
+      <p class="tool-name">Wave Accounting</p>
+      <p class="tool-role">Free invoicing, recurring billing, auto-reminders, and basic reporting. Connects to Zapier. Ideal for early stage.</p>
+      <p class="tool-cost">Free forever for invoicing features.</p>
+    </div>
+    <div class="tool">
+      <p class="tool-cat">Scheduling</p>
+      <p class="tool-name">Calendly</p>
+      <p class="tool-role">Clients book strategy calls directly. No back-and-forth. Integrates with Google Calendar. Auto-sends reminders and Zoom links.</p>
+      <p class="tool-cost">Free for 1 event type. Standard ~$10/mo.</p>
+    </div>
+    <div class="tool">
+      <p class="tool-cat">WhatsApp automation</p>
+      <p class="tool-name">WhatsApp Business API</p>
+      <p class="tool-role">Broadcast lists, quick reply templates, automated responses to common DM enquiries. Essential for Muscat market.</p>
+      <p class="tool-cost">Free app. API via Twilio or 360dialog if scaling.</p>
+    </div>
+  </div>
+</div>
+
+<div id="gates" class="sec">
+  <div class="sl">Human approval points — never automate these</div>
+
+  <div class="gate">
+    <div class="gate-icon" style="background:#EEEDFE;color:#26215C"><i class="ti ti-file-text" aria-hidden="true"></i></div>
+    <div>
+      <p class="gate-title">Gate 1 — Lead qualification decision</p>
+      <p class="gate-body">Before any proposal fires, a human reviews the lead. Is this the right type of client? Right sector? Realistic budget? Automating this sends proposals to the wrong people and wastes good proposals on bad fits.</p>
+    </div>
+  </div>
+
+  <div class="gate">
+    <div class="gate-icon" style="background:#EEEDFE;color:#26215C"><i class="ti ti-writing" aria-hidden="true"></i></div>
+    <div>
+      <p class="gate-title">Gate 2 — Content strategy briefing</p>
+      <p class="gate-body">Monthly content strategy must be written by a human who understands the client's business, sector, and current context. AI can assist drafting, but a human must set direction. No automation replaces strategic thinking here.</p>
+    </div>
+  </div>
+
+  <div class="gate">
+    <div class="gate-icon" style="background:#FAEEDA;color:#633806"><i class="ti ti-eye" aria-hidden="true"></i></div>
+    <div>
+      <p class="gate-title">Gate 3 — Content review before client sees it</p>
+      <p class="gate-body">Every piece of content must be reviewed by the social executive or founder before being sent to the client for approval. Spelling errors, cultural missteps, or off-brand posts should be caught internally — never by the client first.</p>
+    </div>
+  </div>
+
+  <div class="gate">
+    <div class="gate-icon" style="background:#FAEEDA;color:#633806"><i class="ti ti-user-check" aria-hidden="true"></i></div>
+    <div>
+      <p class="gate-title">Gate 4 — Client content approval</p>
+      <p class="gate-body">No post goes live without explicit client approval. The automation queues it — the client approves it. This gate protects both parties and eliminates the most common client complaint in social media agencies ("you posted something we didn't agree to").</p>
+    </div>
+  </div>
+
+  <div class="gate">
+    <div class="gate-icon" style="background:#FCEBEB;color:#791F1F"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div>
+    <div>
+      <p class="gate-title">Gate 5 — Overdue payment escalation</p>
+      <p class="gate-body">Automated reminders go out at day 7 and day 14. But at day 15, a human decides whether to call, message personally, pause services, or make an exception. Payment disputes need human judgment, not another automated email.</p>
+    </div>
+  </div>
+
+  <div class="gate">
+    <div class="gate-icon" style="background:#FCEBEB;color:#791F1F"><i class="ti ti-speakerphone" aria-hidden="true"></i></div>
+    <div>
+      <p class="gate-title">Gate 6 — Ad campaign launch sign-off</p>
+      <p class="gate-body">Paid campaigns are approved by the founder before going live — never auto-launched. Ad spend is the client's real money. Any error in targeting, copy, or budget burns cash that cannot be recovered. Final human check, every time.</p>
+    </div>
+  </div>
+</div>
+
+<div id="risks" class="sec">
+  <div class="sl">Risk prevention mechanisms</div>
+
+  <div class="risk-item">
+    <div class="risk-head"><span class="risk-sev sev-h">High</span><p class="risk-name">Wrong content auto-published without client approval</p></div>
+    <p class="risk-desc">If a scheduling tool publishes a post that was in "draft" state rather than "approved", you face a client crisis and potential reputational damage for their brand — especially sensitive for dental or cosmetic clinics.</p>
+    <p class="risk-guard"><b>Guard:</b> Configure Later/Buffer so only posts tagged "approved" can be queued. Add a mandatory Notion status check in the Zapier workflow before any post enters the publish queue. Dual-confirmation: client approval AND internal "cleared" tag both required.</p>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-head"><span class="risk-sev sev-h">High</span><p class="risk-name">Zapier automation fires on wrong client</p></div>
+    <p class="risk-desc">A misconfigured Zap sends Client A's proposal or invoice to Client B. In a small market like Muscat, this damages trust severely — clients talk to each other.</p>
+    <p class="risk-guard"><b>Guard:</b> Use strict CRM filters in every Zap (match on unique client ID, never name). Test every new Zap with a dummy record before going live. Monthly audit of all active Zaps to check filters are still correct.</p>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-head"><span class="risk-sev sev-h">High</span><p class="risk-name">Ad campaign over-spending due to automation error</p></div>
+    <p class="risk-desc">If an automated trigger re-launches a paused campaign or duplicates a running one, it can burn through a client's ad budget in hours. The client holds you responsible.</p>
+    <p class="risk-guard"><b>Guard:</b> Never automate ad campaign creation or budget changes. Ads are always manually set up and launched. Meta's own budget cap and spend limit features must be enabled on every campaign. Daily email alerts if spend exceeds 90% of daily budget.</p>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-head"><span class="risk-sev sev-m">Medium</span><p class="risk-name">Tool outage breaks client deliverables</p></div>
+    <p class="risk-desc">If Later goes down on a Friday morning and six clients have posts scheduled, nothing publishes. You only find out when a client messages you.</p>
+    <p class="risk-guard"><b>Guard:</b> Monitor Later/Buffer status pages (statuspage.io). Have a manual backup process documented — know how to publish natively on each platform in under 15 minutes. Check all scheduled posts every Monday morning manually, regardless of automation.</p>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-head"><span class="risk-sev sev-m">Medium</span><p class="risk-name">Client data exposed via shared tool access</p></div>
+    <p class="risk-desc">If a team member's Zapier or Notion account is compromised, client data, contracts, and content can be accessed. In Oman's relationship-driven market, a data breach destroys trust permanently.</p>
+    <p class="risk-guard"><b>Guard:</b> All tools use work email accounts (never personal). Two-factor authentication enforced on every tool. Separate workspaces per client in Notion — staff only see the clients they manage. Offboard tool access within 24 hours of any team member leaving.</p>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-head"><span class="risk-sev sev-m">Medium</span><p class="risk-name">Automation creates impersonal client experience</p></div>
+    <p class="risk-desc">If every touchpoint feels like an automated email, you lose the "local trusted partner" brand position that is your core differentiator in Muscat. Clients start feeling like a ticket number, not a relationship.</p>
+    <p class="risk-guard"><b>Guard:</b> All automated client-facing messages must sound personal and warm — reviewed and written by a human, then templated. The founder personally sends the first WhatsApp to every new client. Monthly strategy calls are always human, never recorded and replaced by a report.</p>
+  </div>
+
+  <div style="margin-top:1rem;display:flex;gap:10px;flex-wrap:wrap">
+    <button onclick="sendPrompt('Build a 90-day launch plan for the agency including when to implement each automation ↗')">Build 90-day launch plan ↗</button>
+    <button onclick="sendPrompt('Write the WhatsApp auto-reply templates for lead capture and onboarding ↗')">Write WhatsApp templates ↗</button>
+  </div>
+</div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('active');
+}
+</script>
