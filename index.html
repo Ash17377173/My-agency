@@ -1,0 +1,377 @@
+
+<style>
+  h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .nav{display:flex;gap:6px;flex-wrap:wrap;padding:1.5rem 0 1rem}
+  .nav button{font-size:12px;padding:6px 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .18s}
+  .nav button.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:transparent}
+  .section{display:none}.section.active{display:block}
+  .card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem}
+  .tag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:12px;margin:3px 2px;font-weight:500}
+  .tag-blue{background:#E6F1FB;color:#0C447C}
+  .tag-teal{background:#E1F5EE;color:#085041}
+  .tag-amber{background:#FAEEDA;color:#633806}
+  .tag-coral{background:#FAECE7;color:#4A1B0C}
+  .tag-purple{background:#EEEDFE;color:#26215C}
+  .tag-red{background:#FCEBEB;color:#501313}
+  .tag-green{background:#EAF3DE;color:#173404}
+  .kv{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start}
+  .kv-label{font-size:12px;color:var(--color-text-secondary);min-width:120px;padding-top:2px;flex-shrink:0}
+  .kv-val{font-size:14px;color:var(--color-text-primary);line-height:1.6}
+  .gap-box{border-left:3px solid #1D9E75;padding:10px 14px;margin-bottom:10px;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;background:var(--color-background-secondary)}
+  .trigger-box{border-left:3px solid #7F77DD;padding:10px 14px;margin-bottom:10px;border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;background:var(--color-background-secondary)}
+  .palette{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+  .swatch{width:52px;height:52px;border-radius:var(--border-radius-md);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px}
+  .swatch span{font-size:9px;font-weight:500}
+  .comp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:8px}
+  .comp-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;border:0.5px solid var(--color-border-tertiary)}
+  .comp-name{font-size:13px;font-weight:500;margin-bottom:4px}
+  .comp-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+  .section-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin:1.2rem 0 .5rem}
+  .uvp-box{background:var(--color-background-primary);border:1.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1.5rem;text-align:center;margin:1rem 0}
+  .uvp-box p{font-size:17px;font-weight:500;line-height:1.7;color:var(--color-text-primary)}
+  .archetype-ring{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+  .arch-item{flex:1;min-width:120px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;border:0.5px solid var(--color-border-tertiary)}
+  .arch-primary{border:1.5px solid #7F77DD;background:#EEEDFE}
+  .arch-item-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px}
+  .arch-item-val{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+  .arch-primary .arch-item-val{color:#26215C}
+  .tov-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  .tov-pair{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;border:0.5px solid var(--color-border-tertiary)}
+  .tov-yes{font-size:13px;color:#085041;font-weight:500;margin-bottom:3px}
+  .tov-no{font-size:12px;color:var(--color-text-secondary);text-decoration:line-through}
+  .visual-row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+  .font-sample{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:14px;flex:1;min-width:140px;border:0.5px solid var(--color-border-tertiary)}
+  .divider{height:0.5px;background:var(--color-border-tertiary);margin:1.2rem 0}
+  @media(prefers-color-scheme:dark){
+    .tag-blue{background:#0C447C;color:#B5D4F4}
+    .tag-teal{background:#085041;color:#9FE1CB}
+    .tag-amber{background:#633806;color:#FAC775}
+    .tag-coral{background:#4A1B0C;color:#F5C4B3}
+    .tag-purple{background:#26215C;color:#CECBF6}
+    .tag-red{background:#501313;color:#F7C1C1}
+    .tag-green{background:#173404;color:#C0DD97}
+    .arch-primary{border-color:#7F77DD;background:#26215C}
+    .arch-primary .arch-item-val{color:#CECBF6}
+  }
+</style>
+
+<h2 class="sr-only">Brand strategy and market positioning guidelines for a digital marketing agency in Muscat, Oman</h2>
+
+<div class="nav">
+  <button class="active" onclick="show('market')">Market analysis</button>
+  <button onclick="show('position')">Brand position</button>
+  <button onclick="show('identity')">Brand identity</button>
+  <button onclick="show('triggers')">Buying triggers</button>
+  <button onclick="show('visual')">Visual direction</button>
+</div>
+
+<div id="market" class="section active">
+  <div class="card">
+    <div class="section-label">Main market categories</div>
+    <div class="kv">
+      <span class="kv-label">Category 1</span>
+      <span class="kv-val"><strong>Beauty & wellness</strong> — dental clinics, cosmetics clinics, hair salons. High visual content demand, reputation-driven, strong word-of-mouth culture, loyal repeat customers. Instagram and Snapchat primary.</span>
+    </div>
+    <div class="kv">
+      <span class="kv-label">Category 2</span>
+      <span class="kv-val"><strong>Food & beverage</strong> — restaurants, cafés, cloud kitchens. Highest posting frequency, trend-sensitive, driven by aesthetics and offers. Heavily influenced by food influencers and Google Maps reviews.</span>
+    </div>
+    <div class="kv">
+      <span class="kv-label">Category 3</span>
+      <span class="kv-val"><strong>General SME services</strong> — retail, education, real estate, fitness. Less social media savvy, often under-served by agencies. Willing to pay for results but skeptical due to bad past experiences.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Key competitor clusters in Muscat</div>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-name">Freelance operators</div>
+        <div class="comp-desc">Solo content creators or part-time social managers. Low price, inconsistent output, limited strategy. Very common in Muscat.</div>
+        <div style="margin-top:8px"><span class="tag tag-red">High volume</span><span class="tag tag-amber">Low quality</span></div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Full-service regional agencies</div>
+        <div class="comp-desc">Dubai or Riyadh-headquartered agencies with an Oman branch. Premium pricing, corporate clients only, no SME focus or Arabic-first local insight.</div>
+        <div style="margin-top:8px"><span class="tag tag-blue">High price</span><span class="tag tag-blue">Corporate only</span></div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">Local generalist agencies</div>
+        <div class="comp-desc">Small Muscat-based firms doing a mix of branding, print, web, and social. Jack-of-all-trades, no deep social media specialization.</div>
+        <div style="margin-top:8px"><span class="tag tag-amber">Unfocused</span><span class="tag tag-amber">Mid-price</span></div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-name">In-house staff or owners</div>
+        <div class="comp-desc">Clinic owners or restaurant managers posting themselves. Time-poor, inconsistent, no strategy. A key conversion opportunity.</div>
+        <div style="margin-top:8px"><span class="tag tag-teal">Convertible</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Market gaps — your opportunity white space</div>
+    <div class="gap-box">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">No sector-specialist social media agency exists for SMEs in Muscat</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Dental, salon, and restaurant clients all have unique content needs. Nobody is serving them with category expertise.</div>
+    </div>
+    <div class="gap-box">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Arabic + English bilingual strategy is underserved</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Most agencies prioritize English. Muscat's audience is majority Arabic-speaking. Culturally fluent, bilingual content is a real gap.</div>
+    </div>
+    <div class="gap-box">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Performance accountability is missing at the SME level</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">SME clients have been burned by agencies that show vanity metrics (likes, followers) instead of real business outcomes like appointments booked or walk-ins.</div>
+    </div>
+    <div class="gap-box">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Relationship-based, locally embedded agency</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Muscat is a relationship culture. Clients want to know who they're working with. Remote or faceless agencies lose to trusted local partners who visit the business.</div>
+    </div>
+  </div>
+</div>
+
+<div id="position" class="section">
+  <div class="card">
+    <div class="section-label">Brand role in the market</div>
+    <div class="kv">
+      <span class="kv-label">Role statement</span>
+      <span class="kv-val">The <strong>growth partner</strong> for Muscat's service businesses — the agency that sits inside your world, knows your customers, and turns social media into a real revenue channel.</span>
+    </div>
+    <div class="kv">
+      <span class="kv-label">Positioning line</span>
+      <span class="kv-val"><em>"We don't just manage your pages. We fill your chairs, your tables, and your calendar."</em></span>
+    </div>
+    <div class="kv">
+      <span class="kv-label">Category claim</span>
+      <span class="kv-val">Muscat's first social media agency built specifically for beauty, dental, and hospitality businesses.</span>
+    </div>
+    <div class="kv">
+      <span class="kv-label">Competitive posture</span>
+      <span class="kv-val">You sit <strong>above</strong> freelancers (in strategy, consistency, accountability) and <strong>below</strong> corporate agencies (in price, accessibility, and cultural closeness). You own the SME premium tier.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Unique value proposition</div>
+    <div class="uvp-box">
+      <p>"We help dental clinics, salons, and restaurants in Muscat attract more customers through social media — with bilingual content, sector expertise, and real results you can measure."</p>
+    </div>
+    <div class="section-label">UVP pillars</div>
+    <div class="kv"><span class="kv-label"><span class="tag tag-teal">Pillar 1</span></span><span class="kv-val"><strong>Sector fluency</strong> — we know what a dental patient wants to see before booking, what makes a salon feel luxurious, what food content drives cravings. Not generic posts.</span></div>
+    <div class="kv"><span class="kv-label"><span class="tag tag-purple">Pillar 2</span></span><span class="kv-val"><strong>Bilingual by default</strong> — every strategy is built for both Arabic and English-speaking audiences in Oman, with culturally fluent copy, not just translated posts.</span></div>
+    <div class="kv"><span class="kv-label"><span class="tag tag-amber">Pillar 3</span></span><span class="kv-val"><strong>Results accountability</strong> — we report on appointments, enquiries, walk-ins, and revenue impact — not just likes. Monthly transparent reporting, always.</span></div>
+    <div class="kv"><span class="kv-label"><span class="tag tag-blue">Pillar 4</span></span><span class="kv-val"><strong>Local presence</strong> — a Muscat-based team that visits your business, understands your clientele, and is reachable on WhatsApp. Not a remote dashboard agency.</span></div>
+  </div>
+</div>
+
+<div id="identity" class="section">
+  <div class="card">
+    <div class="section-label">Brand archetype</div>
+    <div class="archetype-ring">
+      <div class="arch-item arch-primary">
+        <div class="arch-item-label">Primary archetype</div>
+        <div class="arch-item-val">The Guide / Mentor</div>
+        <div style="font-size:11px;margin-top:6px;color:var(--color-text-secondary)">Empowers others to succeed. Trusted advisor. Results-focused. Never showy.</div>
+      </div>
+      <div class="arch-item">
+        <div class="arch-item-label">Secondary archetype</div>
+        <div class="arch-item-val">The Craftsperson</div>
+        <div style="font-size:11px;margin-top:6px;color:var(--color-text-secondary)">Takes deep pride in quality work. Details matter. Not content with "good enough."</div>
+      </div>
+      <div class="arch-item">
+        <div class="arch-item-label">Shadow to avoid</div>
+        <div class="arch-item-val">The Trickster / Hype machine</div>
+        <div style="font-size:11px;margin-top:6px;color:var(--color-text-secondary)">Never promise vanity metrics, over-sell, or chase trends with no strategy.</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--color-text-secondary);margin-top:8px;line-height:1.6">This archetype combination builds deep trust with risk-averse SME owners who've been oversold before. The Guide wins loyalty; the Craftsperson wins respect for quality.</div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Brand personality traits</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px">
+      <span class="tag tag-teal">Knowledgeable</span>
+      <span class="tag tag-teal">Warm but professional</span>
+      <span class="tag tag-purple">Locally rooted</span>
+      <span class="tag tag-purple">Culturally fluent</span>
+      <span class="tag tag-blue">Honest and direct</span>
+      <span class="tag tag-blue">Results-obsessed</span>
+      <span class="tag tag-amber">Proactive</span>
+      <span class="tag tag-amber">Approachable</span>
+    </div>
+    <div class="divider"></div>
+    <div class="section-label">Tone of voice</div>
+    <div class="tov-grid">
+      <div class="tov-pair">
+        <div class="tov-yes">Confident, not arrogant</div>
+        <div class="tov-no">We're the best agency in Oman</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px">Say what you do, prove it with results</div>
+      </div>
+      <div class="tov-pair">
+        <div class="tov-yes">Clear and jargon-free</div>
+        <div class="tov-no">Leveraging omnichannel synergies</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px">SME owners don't have time for buzzwords</div>
+      </div>
+      <div class="tov-pair">
+        <div class="tov-yes">Warm and human</div>
+        <div class="tov-no">Our solutions drive KPI uplift</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px">Talk like a trusted advisor at a café</div>
+      </div>
+      <div class="tov-pair">
+        <div class="tov-yes">Specific and evidenced</div>
+        <div class="tov-no">We help businesses grow</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px">Cite real numbers, real sectors, real outcomes</div>
+      </div>
+      <div class="tov-pair">
+        <div class="tov-yes">Bilingual by instinct</div>
+        <div class="tov-no">Google-translated Arabic</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px">Arabic content feels native, not adapted</div>
+      </div>
+      <div class="tov-pair">
+        <div class="tov-yes">Local but not provincial</div>
+        <div class="tov-no">Using only Omani references</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px">Global standards, Muscat heart</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="section-label">Voice examples</div>
+    <div class="kv"><span class="kv-label">Pitch opening</span><span class="kv-val" style="font-style:italic">"Most of your future patients are searching for you on Instagram right now. Let's make sure they find you — and book."</span></div>
+    <div class="kv"><span class="kv-label">Case study tone</span><span class="kv-val" style="font-style:italic">"In 90 days, this Muscat dental clinic went from 400 to 2,800 Instagram followers and saw a 35% increase in new appointment enquiries from social media."</span></div>
+    <div class="kv"><span class="kv-label">Proposal language</span><span class="kv-val" style="font-style:italic">"We don't charge you for posts. We charge you for growth."</span></div>
+  </div>
+</div>
+
+<div id="triggers" class="section">
+  <div class="card">
+    <div class="section-label">Emotional buying triggers</div>
+    <div class="trigger-box" style="border-left-color:#7F77DD">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Fear of being left behind</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">"My competitor's salon has 10K followers. Mine has 400." Activate by showing competitor benchmarks and local market data.</div>
+    </div>
+    <div class="trigger-box" style="border-left-color:#7F77DD">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Frustration with wasted money</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Many SME owners have paid for social media before and saw nothing. Acknowledge this pain directly. Position your accountability model as the antidote.</div>
+    </div>
+    <div class="trigger-box" style="border-left-color:#7F77DD">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Desire for recognition and prestige</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Business owners want their clinic or restaurant to be known as "the best in Muscat." Speak to legacy and reputation, not just traffic.</div>
+    </div>
+    <div class="trigger-box" style="border-left-color:#7F77DD">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Relief from overwhelm</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Owners are busy. They want someone to "just handle it." Your offer of full management is a relief buy, not just a value buy.</div>
+    </div>
+    <div class="trigger-box" style="border-left-color:#7F77DD">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Trust in familiar faces</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">In Muscat's relationship-driven culture, buyers prefer people they know or who come recommended. Referrals and visible local presence are emotional accelerators.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Rational buying triggers</div>
+    <div class="trigger-box" style="border-left-color:#1D9E75">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Transparent ROI model</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Show clear cost-per-enquiry projections and benchmarks. Owners want to know what they're getting for each OMR spent.</div>
+    </div>
+    <div class="trigger-box" style="border-left-color:#1D9E75">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Sector-specific proof</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">A dental clinic owner trusts a case study from another dental clinic far more than a generic "we grew a brand" story. Build a portfolio by sector from day one.</div>
+    </div>
+    <div class="trigger-box" style="border-left-color:#1D9E75">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">No long-term lock-in</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">SMEs are risk-averse. A 3-month pilot offer reduces the barrier significantly and earns trust before upselling to an annual retainer.</div>
+    </div>
+    <div class="trigger-box" style="border-left-color:#1D9E75">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Time savings calculation</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Help owners calculate how many hours per week they spend (badly) on social media. Frame your fee against the cost of their time + the opportunity cost of doing it wrong.</div>
+    </div>
+    <div class="trigger-box" style="border-left-color:#1D9E75">
+      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px">Platform algorithm knowledge</div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Show you understand how Instagram Reels, Snapchat Spotlight, and Google Business Posts work in 2025. Currency of knowledge builds rational confidence.</div>
+    </div>
+  </div>
+</div>
+
+<div id="visual" class="section">
+  <div class="card">
+    <div class="section-label">Visual style direction</div>
+    <div class="kv"><span class="kv-label">Overall feel</span><span class="kv-val">Premium but approachable. Feels like a boutique consultancy, not a tech startup or a loud creative agency. Clean, confident, culturally warm.</span></div>
+    <div class="kv"><span class="kv-label">Design language</span><span class="kv-val">Minimal layouts with strong typographic hierarchy. Generous white space. Photography-forward (real clients, real spaces). No stock photo energy.</span></div>
+    <div class="kv"><span class="kv-label">Cultural sensitivity</span><span class="kv-val">Arabic script used prominently — not as decoration but as a functional, beautiful design element. Right-to-left layouts on all Arabic materials. Avoid imagery inconsistent with Omani cultural norms.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Primary colour palette</div>
+    <div class="palette">
+      <div style="text-align:center">
+        <div class="swatch" style="background:#1A2744"><span style="color:#fff;font-size:9px">Navy</span></div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:4px">#1A2744</div>
+        <div style="font-size:10px;color:var(--color-text-secondary)">Authority</div>
+      </div>
+      <div style="text-align:center">
+        <div class="swatch" style="background:#C9986A"><span style="color:#fff;font-size:9px">Sand</span></div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:4px">#C9986A</div>
+        <div style="font-size:10px;color:var(--color-text-secondary)">Warmth / Oman</div>
+      </div>
+      <div style="text-align:center">
+        <div class="swatch" style="background:#F5F2EC"><span style="color:#aaa;font-size:9px">Cream</span></div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:4px">#F5F2EC</div>
+        <div style="font-size:10px;color:var(--color-text-secondary)">Backgrounds</div>
+      </div>
+      <div style="text-align:center">
+        <div class="swatch" style="background:#1D9E75"><span style="color:#fff;font-size:9px">Teal</span></div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:4px">#1D9E75</div>
+        <div style="font-size:10px;color:var(--color-text-secondary)">Results / Growth</div>
+      </div>
+      <div style="text-align:center">
+        <div class="swatch" style="background:#F0EDE8"><span style="color:#bbb;font-size:9px">Off-white</span></div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:4px">#F0EDE8</div>
+        <div style="font-size:10px;color:var(--color-text-secondary)">Card surfaces</div>
+      </div>
+      <div style="text-align:center">
+        <div class="swatch" style="background:#E84545"><span style="color:#fff;font-size:9px">Alert</span></div>
+        <div style="font-size:10px;color:var(--color-text-secondary);margin-top:4px">#E84545</div>
+        <div style="font-size:10px;color:var(--color-text-secondary)">Accent / CTA</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">Typography direction</div>
+    <div class="visual-row">
+      <div class="font-sample">
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px">Headlines (EN)</div>
+        <div style="font-size:20px;font-weight:500;line-height:1.3;color:var(--color-text-primary)">Sharp, geometric<br>sans-serif</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:6px">e.g. Neue Haas Grotesk, Matter, or Plus Jakarta Sans</div>
+      </div>
+      <div class="font-sample">
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px">Body (EN)</div>
+        <div style="font-size:14px;font-weight:400;line-height:1.7;color:var(--color-text-primary)">Readable, neutral.<br>Confident and clean.</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:6px">Same family, regular weight</div>
+      </div>
+      <div class="font-sample">
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:6px">Arabic (AR)</div>
+        <div style="font-size:18px;font-weight:500;line-height:1.6;color:var(--color-text-primary);direction:rtl">نمو حقيقي<br>نتائج قابلة للقياس</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:6px">Tajawal or Almarai — modern, legible, premium</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">Photography & content style</div>
+    <div class="kv"><span class="kv-label">Photography</span><span class="kv-val">Real spaces, real people, natural light. Behind-the-scenes of clinics, kitchens, and salons. Warm tones. Avoid sterile stock imagery.</span></div>
+    <div class="kv"><span class="kv-label">Video direction</span><span class="kv-val">Reels-first. Quick, energetic cuts. Subtitle all videos (Arabic + English). Before/after formats for dental and cosmetics. Process/atmosphere for food.</span></div>
+    <div class="kv"><span class="kv-label">Graphic style</span><span class="kv-val">Clean geometric layouts for stats and testimonials. Subtle sand and cream textures as backgrounds. Navy anchors for trust. Teal accents for growth moments.</span></div>
+    <div class="kv"><span class="kv-label">Do not use</span><span class="kv-val">Neon colors, heavy drop shadows, over-filtered photos, generic "megaphone" or "rocket" marketing clipart, AI-generated faces.</span></div>
+
+    <div class="divider"></div>
+    <div class="section-label">Logo & naming direction</div>
+    <div class="kv"><span class="kv-label">Name direction</span><span class="kv-val">A bilingual-friendly name that works in both Arabic and English. Short, ownable, not a descriptor. Avoid "Digital", "Media", or "Agency" as part of the name — too generic for positioning.</span></div>
+    <div class="kv"><span class="kv-label">Logo style</span><span class="kv-val">Wordmark or monogram. Clean, scalable, works reversed (white on navy). Optional Arabic calligraphic element woven into the mark to signal cultural fluency, not just token inclusion.</span></div>
+  </div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
