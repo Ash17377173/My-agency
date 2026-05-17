@@ -1,0 +1,462 @@
+
+<style>
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.nav{display:flex;gap:6px;flex-wrap:wrap;padding:1.25rem 0 1rem}
+.nav button{font-size:12px;padding:5px 14px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.nav button.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:transparent}
+.sec{display:none}.sec.on{display:block}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:12px}
+.sl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-secondary);margin:1.2rem 0 .6rem}
+.sl:first-child{margin-top:0}
+.row{display:flex;gap:10px;align-items:flex-start;margin-bottom:9px}
+.row-icon{width:28px;height:28px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.row-body{}
+.row-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 1px}
+.row-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.55;margin:0}
+.tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;margin:0 3px 3px 0}
+.t-teal{background:#E1F5EE;color:#085041}
+.t-purple{background:#EEEDFE;color:#26215C}
+.t-amber{background:#FAEEDA;color:#633806}
+.t-red{background:#FCEBEB;color:#501313}
+.t-gray{background:#F1EFE8;color:#444441}
+.t-blue{background:#E6F1FB;color:#0C447C}
+.stream-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-bottom:1rem}
+.stream{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;border:0.5px solid var(--color-border-tertiary)}
+.stream-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 3px}
+.stream-val{font-size:11px;color:var(--color-text-secondary);margin:0 0 6px}
+.stream-bar-wrap{height:4px;background:var(--color-border-tertiary);border-radius:2px;margin-top:8px}
+.stream-bar{height:4px;border-radius:2px}
+.cost-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.cost-row:last-child{border-bottom:none}
+.cost-name{font-size:13px;color:var(--color-text-primary)}
+.cost-right{display:flex;align-items:center;gap:10px}
+.cost-pct{font-size:12px;font-weight:500;color:var(--color-text-secondary);min-width:36px;text-align:right}
+.cost-bar-wrap{width:80px;height:4px;background:var(--color-border-tertiary);border-radius:2px}
+.cost-bar{height:4px;border-radius:2px;background:#1D9E75}
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1rem}
+.cap-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;border:0.5px solid var(--color-border-tertiary)}
+.cap-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px}
+.cap-val{font-size:20px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.cap-sub{font-size:11px;color:var(--color-text-secondary)}
+.cap-warn{border-color:#E24B4A;background:#FCEBEB}
+.cap-warn .cap-label,.cap-warn .cap-sub{color:#A32D2D}
+.cap-warn .cap-val{color:#791F1F}
+.dept{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:12px}
+.dept-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer}
+.dept-icon{width:36px;height:36px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.dept-title{font-size:15px;font-weight:500;color:var(--color-text-primary);margin:0 0 1px}
+.dept-sub{font-size:12px;color:var(--color-text-secondary);margin:0}
+.role-list{display:flex;flex-direction:column;gap:10px}
+.role{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px}
+.role-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.role-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0}
+.role-stage{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500}
+.stage-now{background:#E1F5EE;color:#085041}
+.stage-later{background:#F1EFE8;color:#444441}
+.resp-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px}
+.resp-list li{font-size:12px;color:var(--color-text-secondary);display:flex;gap:6px;line-height:1.45}
+.resp-list li::before{content:"—";color:var(--color-border-secondary);flex-shrink:0}
+.risk-item{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.1rem 1.25rem;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start}
+.risk-sev{width:32px;height:32px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
+.sev-h{background:#FCEBEB;color:#791F1F}
+.sev-m{background:#FAEEDA;color:#633806}
+.sev-l{background:#E1F5EE;color:#085041}
+.risk-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 3px}
+.risk-body{font-size:12px;color:var(--color-text-secondary);line-height:1.55;margin:0 0 6px}
+.risk-fix{font-size:11px;color:var(--color-text-secondary);font-style:italic}
+.risk-fix span{font-weight:500;color:var(--color-text-primary);font-style:normal}
+@media(prefers-color-scheme:dark){
+  .t-teal{background:#085041;color:#9FE1CB}
+  .t-purple{background:#26215C;color:#CECBF6}
+  .t-amber{background:#633806;color:#FAC775}
+  .t-red{background:#501313;color:#F7C1C1}
+  .t-gray{background:#444441;color:#D3D1C7}
+  .t-blue{background:#0C447C;color:#B5D4F4}
+  .cap-warn{background:#501313;border-color:#A32D2D}
+  .cap-warn .cap-label,.cap-warn .cap-sub{color:#F7C1C1}
+  .cap-warn .cap-val{color:#F09595}
+  .stage-now{background:#085041;color:#9FE1CB}
+  .stage-later{background:#444441;color:#D3D1C7}
+  .sev-h{background:#501313;color:#F09595}
+  .sev-m{background:#633806;color:#FAC775}
+  .sev-l{background:#085041;color:#9FE1CB}
+}
+</style>
+
+<h2 class="sr-only">Operating blueprint for a Muscat digital marketing agency — revenue streams, costs, capacity, roles, and risks</h2>
+
+<div style="padding-top:.5rem">
+<div class="nav">
+  <button class="active" onclick="show('rev',this)">Revenue</button>
+  <button onclick="show('costs',this)">Costs</button>
+  <button onclick="show('cap',this)">Capacity</button>
+  <button onclick="show('roles',this)">Roles</button>
+  <button onclick="show('risks',this)">Risks</button>
+</div>
+
+<div id="rev" class="sec on">
+  <div class="sl">Revenue streams</div>
+  <div class="stream-grid">
+    <div class="stream">
+      <p class="stream-name">Retainer packages</p>
+      <p class="stream-val">Presence / Growth / Dominate — monthly</p>
+      <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:2px"><span class="tag t-teal">Recurring</span><span class="tag t-teal">Core</span></div>
+      <div class="stream-bar-wrap"><div class="stream-bar" style="width:80%;background:#1D9E75"></div></div>
+    </div>
+    <div class="stream">
+      <p class="stream-name">Content production</p>
+      <p class="stream-val">Photo + video shoots, per session or bundled</p>
+      <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:2px"><span class="tag t-teal">Recurring</span><span class="tag t-teal">Core</span></div>
+      <div class="stream-bar-wrap"><div class="stream-bar" style="width:65%;background:#1D9E75"></div></div>
+    </div>
+    <div class="stream">
+      <p class="stream-name">Paid ad management</p>
+      <p class="stream-val">Management fee on top of client ad spend</p>
+      <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:2px"><span class="tag t-teal">Recurring</span><span class="tag t-blue">High margin</span></div>
+      <div class="stream-bar-wrap"><div class="stream-bar" style="width:55%;background:#1D9E75"></div></div>
+    </div>
+    <div class="stream">
+      <p class="stream-name">Add-on services</p>
+      <p class="stream-val">Google Business, WhatsApp, influencer campaigns</p>
+      <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:2px"><span class="tag t-purple">Upsell</span><span class="tag t-blue">High margin</span></div>
+      <div class="stream-bar-wrap"><div class="stream-bar" style="width:35%;background:#7F77DD"></div></div>
+    </div>
+    <div class="stream">
+      <p class="stream-name">Project work</p>
+      <p class="stream-val">Landing pages, audits, one-off campaigns</p>
+      <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:2px"><span class="tag t-gray">Variable</span></div>
+      <div class="stream-bar-wrap"><div class="stream-bar" style="width:20%;background:#888780"></div></div>
+    </div>
+  </div>
+
+  <div class="sl" style="margin-top:1.4rem">Revenue model principles</div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div class="row">
+      <div class="row-icon" style="background:#E1F5EE;color:#085041"><i class="ti ti-repeat" aria-hidden="true"></i></div>
+      <div class="row-body">
+        <p class="row-title">Retainer-first, always</p>
+        <p class="row-desc">Every new client should enter on a retainer package. Project work is a door opener, not a business model. Target 85%+ of revenue from monthly retainers within 6 months.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-icon" style="background:#E1F5EE;color:#085041"><i class="ti ti-trending-up" aria-hidden="true"></i></div>
+      <div class="row-body">
+        <p class="row-title">Upsell path built in</p>
+        <p class="row-desc">Every Presence client has a clear upgrade path to Growth. Every Growth client can add Google Business, WhatsApp, or influencer services. Design each client relationship for expansion, not just retention.</p>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:0">
+      <div class="row-icon" style="background:#E1F5EE;color:#085041"><i class="ti ti-receipt" aria-hidden="true"></i></div>
+      <div class="row-body">
+        <p class="row-title">Ad spend is pass-through</p>
+        <p class="row-desc">Client ad spend always flows directly to the platform — never through your accounts. You charge a management fee only. This protects your cash flow and eliminates liability.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="costs" class="sec">
+  <div class="sl">Main cost drivers — estimated % of gross revenue</div>
+  <div class="card">
+    <div class="cost-row">
+      <div>
+        <div class="cost-name">Team salaries &amp; freelancers</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Content manager, photographer/videographer, social executive</div>
+      </div>
+      <div class="cost-right">
+        <span class="cost-pct">40–50%</span>
+        <div class="cost-bar-wrap"><div class="cost-bar" style="width:90%"></div></div>
+      </div>
+    </div>
+    <div class="cost-row">
+      <div>
+        <div class="cost-name">Equipment &amp; production</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Camera gear, lighting, editing hardware/software — amortised</div>
+      </div>
+      <div class="cost-right">
+        <span class="cost-pct">8–12%</span>
+        <div class="cost-bar-wrap"><div class="cost-bar" style="width:22%"></div></div>
+      </div>
+    </div>
+    <div class="cost-row">
+      <div>
+        <div class="cost-name">Software &amp; tools</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Scheduling (Later/Buffer), design (Canva/Adobe), analytics, CRM</div>
+      </div>
+      <div class="cost-right">
+        <span class="cost-pct">4–6%</span>
+        <div class="cost-bar-wrap"><div class="cost-bar" style="width:10%"></div></div>
+      </div>
+    </div>
+    <div class="cost-row">
+      <div>
+        <div class="cost-name">Office &amp; transport</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Co-working desk or small office, client site visits across Muscat</div>
+      </div>
+      <div class="cost-right">
+        <span class="cost-pct">5–8%</span>
+        <div class="cost-bar-wrap"><div class="cost-bar" style="width:14%"></div></div>
+      </div>
+    </div>
+    <div class="cost-row">
+      <div>
+        <div class="cost-name">Sales &amp; marketing</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Your own social presence, referral gifts, proposal materials</div>
+      </div>
+      <div class="cost-right">
+        <span class="cost-pct">3–5%</span>
+        <div class="cost-bar-wrap"><div class="cost-bar" style="width:8%"></div></div>
+      </div>
+    </div>
+    <div class="cost-row">
+      <div>
+        <div class="cost-name">Finance, legal &amp; admin</div>
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-top:2px">Accountant, contracts, bank fees, OCCI registration</div>
+      </div>
+      <div class="cost-right">
+        <span class="cost-pct">2–4%</span>
+        <div class="cost-bar-wrap"><div class="cost-bar" style="width:6%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sl">Target margin structure</div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div class="row">
+      <div class="row-icon" style="background:#E1F5EE;color:#085041"><i class="ti ti-chart-pie" aria-hidden="true"></i></div>
+      <div class="row-body">
+        <p class="row-title">Gross margin target: 55–65%</p>
+        <p class="row-desc">Retainer + ad management services are high-margin. Content production (shoots) is lower-margin due to time. Mix heavily toward management services as you scale.</p>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:0">
+      <div class="row-icon" style="background:#EEEDFE;color:#26215C"><i class="ti ti-building" aria-hidden="true"></i></div>
+      <div class="row-body">
+        <p class="row-title">Break-even: ~7–8 Growth-equivalent clients</p>
+        <p class="row-desc">With a lean team of 2–3 people, monthly fixed costs should sit under OMR 1,500–2,000. That means roughly OMR 380 × 7 clients covers your floor. Everything above is profit.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="cap" class="sec">
+  <div class="sl">Capacity constraints — per team member</div>
+  <div class="cap-grid">
+    <div class="cap-card">
+      <div class="cap-label">Max clients — 1 social manager</div>
+      <div class="cap-val">8–10</div>
+      <div class="cap-sub">retainer clients per FTE</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-label">Max shoots — 1 photographer</div>
+      <div class="cap-val">12–16</div>
+      <div class="cap-sub">half-day shoots per month</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-label">Max ad campaigns — 1 exec</div>
+      <div class="cap-val">10–14</div>
+      <div class="cap-sub">active campaigns managed</div>
+    </div>
+    <div class="cap-card cap-warn">
+      <div class="cap-label">Danger zone — solo founder</div>
+      <div class="cap-val">&gt; 5</div>
+      <div class="cap-sub">clients before quality drops</div>
+    </div>
+  </div>
+
+  <div class="sl">Scaling trigger points</div>
+  <div class="card" style="padding:1rem 1.25rem">
+    <div class="row">
+      <div class="row-icon" style="background:#E1F5EE;color:#085041"><i class="ti ti-user-plus" aria-hidden="true"></i></div>
+      <div class="row-body">
+        <p class="row-title">Hire #1 — social media executive (month 3–4)</p>
+        <p class="row-desc">When you reach 5 clients and are spending more than 60% of your time on execution (posting, captions, scheduling), hire a junior social executive to take over delivery. You move to strategy and sales.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-icon" style="background:#E1F5EE;color:#085041"><i class="ti ti-camera" aria-hidden="true"></i></div>
+      <div class="row-body">
+        <p class="row-title">Hire #2 — photographer/videographer (month 4–6)</p>
+        <p class="row-desc">When shoots exceed 6/month, a dedicated content creator is more cost-effective than outsourcing. Look for someone bilingual with a Reels-first mindset, not just a photographer.</p>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:0">
+      <div class="row-icon" style="background:#EEEDFE;color:#26215C"><i class="ti ti-users" aria-hidden="true"></i></div>
+      <div class="row-body">
+        <p class="row-title">Hire #3 — account manager (month 8–12)</p>
+        <p class="row-desc">At 15+ clients, client relationships become a full-time job. An account manager handles reporting, WhatsApp communication, and upsell conversations — protecting your time for new business.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="roles" class="sec">
+
+  <div class="sl">Founder / agency director</div>
+  <div class="dept">
+    <div class="dept-head">
+      <div class="dept-icon" style="background:#E1F5EE;color:#085041"><i class="ti ti-briefcase" aria-hidden="true"></i></div>
+      <div>
+        <p class="dept-title">Founder / agency director</p>
+        <p class="dept-sub">Strategy, sales, and overall quality control</p>
+      </div>
+    </div>
+    <div class="role-list">
+      <div class="role">
+        <div class="role-header"><p class="role-name">Founder</p><span class="role-stage stage-now">Day 1</span></div>
+        <ul class="resp-list">
+          <li>Own all client relationships and account strategy</li>
+          <li>Lead all new business pitches and proposals</li>
+          <li>Set monthly content strategy for each client</li>
+          <li>Review and approve all content before it goes live</li>
+          <li>Handle invoicing, contracts, and financial oversight</li>
+          <li>Build the agency's own brand on social media</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sl">Delivery department</div>
+  <div class="dept">
+    <div class="dept-head">
+      <div class="dept-icon" style="background:#EEEDFE;color:#26215C"><i class="ti ti-palette" aria-hidden="true"></i></div>
+      <div>
+        <p class="dept-title">Content &amp; delivery</p>
+        <p class="dept-sub">Execution of all client deliverables</p>
+      </div>
+    </div>
+    <div class="role-list">
+      <div class="role">
+        <div class="role-header"><p class="role-name">Social media executive</p><span class="role-stage stage-now">Hire at 5 clients</span></div>
+        <ul class="resp-list">
+          <li>Write all captions in Arabic and English for assigned clients</li>
+          <li>Schedule and publish content across all platforms</li>
+          <li>Manage comments, DMs, and community replies daily</li>
+          <li>Build and maintain monthly content calendars</li>
+          <li>Pull monthly performance data and draft reports</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="role-header"><p class="role-name">Photographer / videographer</p><span class="role-stage stage-now">Hire at 6+ shoots/mo</span></div>
+        <ul class="resp-list">
+          <li>Execute monthly shoots at client locations</li>
+          <li>Produce and edit Reels, TikToks, and short-form video</li>
+          <li>Maintain brand visual consistency across client content</li>
+          <li>Manage photo/video asset library per client</li>
+          <li>Add Arabic + English subtitles to all video content</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sl">Growth department</div>
+  <div class="dept">
+    <div class="dept-head">
+      <div class="dept-icon" style="background:#E6F1FB;color:#0C447C"><i class="ti ti-speakerphone" aria-hidden="true"></i></div>
+      <div>
+        <p class="dept-title">Performance &amp; growth</p>
+        <p class="dept-sub">Paid media, analytics, and client expansion</p>
+      </div>
+    </div>
+    <div class="role-list">
+      <div class="role">
+        <div class="role-header"><p class="role-name">Paid media specialist</p><span class="role-stage stage-later">Hire at 8+ ad clients</span></div>
+        <ul class="resp-list">
+          <li>Set up, manage, and optimise all paid ad campaigns</li>
+          <li>Build audience targeting strategies per sector</li>
+          <li>Run A/B tests on creatives and copy</li>
+          <li>Report on cost-per-result and ROAS monthly</li>
+          <li>Manage Meta Business Manager and Snapchat Ads accounts</li>
+        </ul>
+      </div>
+      <div class="role">
+        <div class="role-header"><p class="role-name">Account manager</p><span class="role-stage stage-later">Hire at 15+ clients</span></div>
+        <ul class="resp-list">
+          <li>Serve as primary day-to-day contact for a portfolio of clients</li>
+          <li>Conduct monthly strategy calls and present reports</li>
+          <li>Identify upsell and expansion opportunities per account</li>
+          <li>Flag delivery issues before they reach the client</li>
+          <li>Manage contract renewals and onboarding for new clients</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="risks" class="sec">
+  <div class="sl">Key operational risks — by severity</div>
+
+  <div class="risk-item">
+    <div class="risk-sev sev-h">High</div>
+    <div>
+      <p class="risk-title">Single-founder delivery bottleneck</p>
+      <p class="risk-body">If you are the only person producing content, one illness, trip, or overload directly breaks client deliverables. This is the #1 agency killer at the SME stage.</p>
+      <p class="risk-fix"><span>Mitigation:</span> Hire or retain a freelance social executive by client 4. Document all processes in SOPs before you need them — not after.</p>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-sev sev-h">High</div>
+    <div>
+      <p class="risk-title">Client concentration — over-reliance on 1–2 large clients</p>
+      <p class="risk-body">If 40%+ of your revenue comes from one client and they cancel, you face an immediate cash crisis. Common in early-stage agencies chasing quick revenue.</p>
+      <p class="risk-fix"><span>Mitigation:</span> Cap any single client at 25% of total revenue. Prioritise spreading across 8+ clients even if smaller.</p>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-sev sev-h">High</div>
+    <div>
+      <p class="risk-title">No written contracts — scope creep and non-payment</p>
+      <p class="risk-body">Muscat SME owners often expect "extras" outside the agreed scope. Without a clear written contract and deliverable list, you will over-deliver and under-charge — or face disputes on payment.</p>
+      <p class="risk-fix"><span>Mitigation:</span> Use a signed service agreement for every client from day one. Include a clear scope of work, revision limits, and payment terms (50% upfront).</p>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-sev sev-m">Medium</div>
+    <div>
+      <p class="risk-title">Key staff departure — photographer or social executive leaves</p>
+      <p class="risk-body">If your main content creator leaves, you lose the visual consistency your clients pay for. Client relationships often follow individual team members, not agencies.</p>
+      <p class="risk-fix"><span>Mitigation:</span> Maintain a bench of 1–2 vetted freelancers at all times. Keep all client assets and accounts in agency-owned tools, never personal accounts.</p>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-sev sev-m">Medium</div>
+    <div>
+      <p class="risk-title">Platform algorithm dependency</p>
+      <p class="risk-body">Your entire value proposition depends on Instagram, Snapchat, and TikTok. A major algorithm change or regional restriction (as has happened before in GCC) can undermine results overnight.</p>
+      <p class="risk-fix"><span>Mitigation:</span> Always recommend clients build owned channels — email list, WhatsApp list, Google Business. Diversification protects both you and them.</p>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-sev sev-m">Medium</div>
+    <div>
+      <p class="risk-title">Late or non-payment from SME clients</p>
+      <p class="risk-body">Small business owners in Muscat frequently delay payment, especially in the first months of a relationship. Cash flow disruption can destabilise operations fast at small scale.</p>
+      <p class="risk-fix"><span>Mitigation:</span> Require 50% upfront on all retainers, auto-invoice on the 1st of each month, and pause services after 15 days overdue. Build this into contracts from day one.</p>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <div class="risk-sev sev-l">Low</div>
+    <div>
+      <p class="risk-title">Reputation damage from a client's public controversy</p>
+      <p class="risk-body">If a client faces a public scandal or negative press in Muscat, your agency's name is linked to their content. Small city, word travels fast.</p>
+      <p class="risk-fix"><span>Mitigation:</span> Include a reputational exit clause in contracts. Reserve the right to pause services if association creates brand risk for the agency.</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('active');
+}
+</script>
